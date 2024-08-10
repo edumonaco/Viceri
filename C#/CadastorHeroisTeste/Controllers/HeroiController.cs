@@ -22,6 +22,10 @@ namespace CadastorHeroisTeste.Controllers
         public async Task<IActionResult> Index()
         {
             var heroList = await _context.Herois.ToListAsync();
+            if  (heroList?.Count == 0)
+            {
+                return Ok("Não existem Herois cadastrados");
+            }
             return Ok(heroList);
         }
 
@@ -32,7 +36,7 @@ namespace CadastorHeroisTeste.Controllers
             var heroi = await _context.Herois.FirstOrDefaultAsync(m => m.Id == id);
             if (heroi == null)
             {
-                return NotFound();
+                return NotFound("Id inválido");
             }
             return Ok(heroi);
         }
@@ -41,11 +45,26 @@ namespace CadastorHeroisTeste.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Heroi heroi)
         {
+
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
+            bool heroiExists = await _context.Herois
+                .AnyAsync(h => h.Nome == heroi.Nome);
+
+            if (heroiExists)
+            {
+                return Conflict("Já existe um herói com o mesmo nome.");
+            }
+
+            if (heroi.SuperPoderes != null)
+            {
+                _context.AddRange(heroi.SuperPoderes);
+            }
+            await _context.SaveChangesAsync();
             _context.Add(heroi);
             await _context.SaveChangesAsync();
 
@@ -64,6 +83,20 @@ namespace CadastorHeroisTeste.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }
+
+            var existeHeroi = await _context.Herois.FindAsync(id);
+            if (existeHeroi == null)
+            {
+                return NotFound($"Heroi com ID {id} não encontrado.");
+            }
+
+            bool heroiExists = await _context.Herois
+               .AnyAsync(h => h.Nome == heroi.Nome);
+
+            if (heroiExists)
+            {
+                return Conflict("Já existe um herói com o mesmo nome.");
             }
 
             try
@@ -94,6 +127,12 @@ namespace CadastorHeroisTeste.Controllers
             if (heroi == null)
             {
                 return NotFound();
+            }
+
+            var existeHeroi = await _context.Herois.FindAsync(id);
+            if (existeHeroi == null)
+            {
+                return NotFound($"Heroi com ID {id} não encontrado.");
             }
 
             _context.Herois.Remove(heroi);
