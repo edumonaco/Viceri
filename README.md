@@ -1,6 +1,6 @@
 # Cadastro de Herois
 
-foram atingidas todas as especificações abaixo, com as respectivas mensagens de validação e testes unitarios:
+foram atingidas todas as especificações abaixo no backend, com as respectivas mensagens de validação e testes unitarios:
 
 
 •	Cadastro de um novo super-herói
