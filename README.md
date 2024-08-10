@@ -21,4 +21,5 @@ foram atingidas todas as especificações abaixo no backend, com as respectivas 
 
 
 # OBS:
-devido ao limite de tempo, o projeto em angular não foi completado a tempo. Terminarei ele após o tempo limite
+Devido ao limite de tempo, o projeto em angular não foi completado a tempo. 
+A qualidade do codigo não reflete o rigor que eu teria em uma situação real com maior tempo de desenvolvimento
