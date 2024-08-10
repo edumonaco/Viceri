@@ -18,3 +18,7 @@ foram atingidas todas as especificações abaixo no backend, com as respectivas 
 •	Entity Framework para acesso ao banco de dados, tanto para leitura como para gravação
 
 •	Testes unitários
+
+
+OBS:
+devido ao limite de tempo, o projeto em angular não foi completado a tempo. Terminarei ele após o tempo limite
